@@ -1,0 +1,75 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations:
+    description: Defines how to deploy the application server
+    template.alpha.openshift.io/wait-for-ready: "true"
+  labels:
+    app: nodejs-postgresql-persistent
+    app.openshift.io/runtime: nodejs
+    template: nodejs-postgresql-persistent
+  name: nodejs-postgresql-persistent
+  namespace: cluster-validation-nodejs
+spec:
+  replicas: 1
+  selector:
+    name: nodejs-postgresql-persistent
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.openshift.io/runtime: nodejs
+        name: nodejs-postgresql-persistent
+      name: nodejs-postgresql-persistent
+    spec:
+      containers:
+        - env:
+            - name: DATABASE_SERVICE_NAME
+              value: postgresql
+            - name: POSTGRESQL_USER
+              valueFrom:
+                secretKeyRef:
+                  key: database-user
+                  name: nodejs-postgresql-persistent
+            - name: POSTGRESQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: database-password
+                  name: nodejs-postgresql-persistent
+            - name: POSTGRESQL_DATABASE
+              value: my_data
+            - name: POSTGRESQL_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: database-admin-password
+                  name: nodejs-postgresql-persistent
+          image: ' '
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 30
+            timeoutSeconds: 3
+          name: nodejs-postgresql-persistent
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 3
+            timeoutSeconds: 3
+          resources:
+            limits:
+              memory: 256Mi
+  triggers:
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+          - nodejs-postgresql-persistent
+        from:
+          kind: ImageStreamTag
+          name: nodejs-postgresql-persistent:latest
+      type: ImageChange
+    - type: ConfigChange

@@ -1,0 +1,33 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations:
+    description: Defines how to build the application
+  labels:
+    app: nodejs-postgresql-persistent
+  name: nodejs-postgresql-persistent
+  namespace: cluster-validation-nodejs
+spec:
+  output:
+    to:
+      kind: ImageStreamTag
+      name: nodejs-postgresql-persistent:latest
+  postCommit: {}
+  source:
+    contextDir: ""
+    git:
+      ref: ""
+      uri: https://github.com/nodeshift-starters/nodejs-rest-http-crud.git
+    type: Git
+  strategy:
+    sourceStrategy:
+      env:
+        - name: NPM_MIRROR
+          value: ""
+      from:
+        kind: ImageStreamTag
+        name: nodejs-12-ubi8:latest
+    type: Source
+  triggers:
+    - type: ImageChange
+    - type: ConfigChange

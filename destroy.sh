@@ -1,4 +1,4 @@
-#! bin/bash
+#! /bin/bash
 # destroy
 
 oc delete -f 20-nodejs-postgresql-persistent

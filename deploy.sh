@@ -1,4 +1,4 @@
-#! bin/bash
+#! /bin/bash
 # deploy.sh
 
 oc apply -f 00-namespaces

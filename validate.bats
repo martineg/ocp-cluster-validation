@@ -16,3 +16,9 @@ setup() {
     --data '{"name":"Banana", "stock": 11}' \
     $app_root | jq
 }
+
+@test "delete item from database" {
+    item_id=$(curl -s $app_root | \
+    jq '.[] | select(.name == "Banana") | .id')
+    curl -s -X DELETE $app_root/$item_id | jq
+}

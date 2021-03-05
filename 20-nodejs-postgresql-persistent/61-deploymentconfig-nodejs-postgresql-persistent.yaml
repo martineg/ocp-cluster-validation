@@ -3,7 +3,8 @@ kind: DeploymentConfig
 metadata:
   annotations:
     description: Defines how to deploy the database
-    template.alpha.openshift.io/wait-for-ready: "true"
+    app.openshift.io/connects-to: >-
+      [{"apiVersion":"apps.openshift.io/v1","kind":"DeploymentConfig","name":"postgresql"}]
   labels:
     app: nodejs-postgresql-persistent
     template: nodejs-postgresql-persistent

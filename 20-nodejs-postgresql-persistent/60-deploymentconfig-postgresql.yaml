@@ -1,13 +1,8 @@
 apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
-  annotations:
-    description: Defines how to deploy the application server
-    template.alpha.openshift.io/wait-for-ready: "true"
   labels:
     app: nodejs-postgresql-persistent
-    app.openshift.io/runtime: nodejs
-    template: nodejs-postgresql-persistent
   name: nodejs-postgresql-persistent
   namespace: cluster-validation-nodejs
 spec:
@@ -19,7 +14,6 @@ spec:
   template:
     metadata:
       labels:
-        app.openshift.io/runtime: nodejs
         name: nodejs-postgresql-persistent
       name: nodejs-postgresql-persistent
     spec:

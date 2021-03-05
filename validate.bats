@@ -1,9 +1,14 @@
 #! /usr/bin/env bats
 
 setup() {
+    echo "setting up"
     validation_namespace=cluster-validation-nodejs
     app_route=$(oc get -n cluster-validation-nodejs route nodejs-postgresql-persistent -o template="{{.spec.host}}")
     export app_root=${app_route}/api/fruits
+}
+
+@test "deploy validation application" {
+    run scripts/deploy.sh
 }
 
 @test "initial read from API" {

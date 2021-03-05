@@ -6,6 +6,11 @@ A validation script is provided to test read and write accesss to the database t
 
 A default storage class must be defined in the cluster for successfull deployment of a persistent PostgreSQL instance.
 
+## Prerequisites
+- [bats test framework](https://github.com/sstephenson/bats)
+- [jq](https://stedolan.github.io/jq/)
+
+## Cluster use cases tested
 
 - [x] S2I builds
 - [x] Push image to internal image registry

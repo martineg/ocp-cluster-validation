@@ -13,33 +13,15 @@ A validation script is provided to test read and write accesss to the database t
 
 With the prerequisite tools installed, the sample validation application can be deployed and tested by running the `validate.bats` test suite.
 
+
 ```bash
-$ bats validate.bats
  ✓ deploy validation application
  ✓ initial read from API
  ✓ add an element to the database trough API
  ✓ delete item from database
+ ✓ delete validation application
 
-4 tests, 0 failures
-```
-
-## Cleaning up
-
-The application can be removed by running the `scripts/destroy.sh` script.
-
-```bash
-$ ./scripts/destroy.sh
-imagestream.image.openshift.io "nodejs-postgresql-persistent" deleted
-imagestream.image.openshift.io "nodejs-12-ubi8" deleted
-buildconfig.build.openshift.io "nodejs-postgresql-persistent" deleted
-persistentvolumeclaim "postgresql" deleted
-service "postgresql" deleted
-service "nodejs-postgresql-persistent" deleted
-route.route.openshift.io "nodejs-postgresql-persistent" deleted
-secret "nodejs-postgresql-persistent" deleted
-deploymentconfig.apps.openshift.io "nodejs-postgresql-persistent" deleted
-deploymentconfig.apps.openshift.io "postgresql" deleted
-namespace "cluster-validation-nodejs" deleted
+5 tests, 0 failures
 ```
 
 ## Cluster use cases tested

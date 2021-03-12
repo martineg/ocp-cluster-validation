@@ -1,4 +1,4 @@
-# Sample application for end-to-end cluster test (build and deploy)
+# Sample application for end-to-end cluster test
 
 A sample application consisting of a database layer using persistent storage and a nodejs frontend presenting a basic REST api performing CRUD operations to the database.
 

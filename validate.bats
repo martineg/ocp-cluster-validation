@@ -3,8 +3,7 @@
 load scripts/helper
 
 @test "deploy validation application" {
-    run scripts/deploy.sh | \
-    tee ${BATS_TEST_NAME}.out
+    run scripts/deploy.sh
 }
 
 @test "initial read from API" {

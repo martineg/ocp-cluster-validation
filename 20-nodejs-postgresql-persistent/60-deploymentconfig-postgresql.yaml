@@ -63,7 +63,7 @@ spec:
           - postgresql
         from:
           kind: ImageStreamTag
-          name: postgresql:12-el8
+          name: postgresql:12
           namespace: openshift
       type: ImageChange
     - type: ConfigChange

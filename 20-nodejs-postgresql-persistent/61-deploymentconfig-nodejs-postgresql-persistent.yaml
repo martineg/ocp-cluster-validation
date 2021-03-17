@@ -9,7 +9,7 @@ metadata:
   name: nodejs-postgresql-persistent
   namespace: cluster-validation-nodejs
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     name: nodejs-postgresql-persistent
   strategy:

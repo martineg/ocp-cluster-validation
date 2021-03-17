@@ -6,23 +6,24 @@ metadata:
       [{"apiVersion":"apps.openshift.io/v1","kind":"DeploymentConfig","name":"postgresql"}]
   labels:
     app: nodejs-postgresql-persistent
-    template: nodejs-postgresql-persistent
-  name: postgresql
+  name: nodejs-postgresql-persistent
   namespace: cluster-validation-nodejs
 spec:
   replicas: 1
   selector:
-    name: postgresql
+    name: nodejs-postgresql-persistent
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        name: postgresql
-      name: postgresql
+        name: nodejs-postgresql-persistent
+      name: nodejs-postgresql-persistent
     spec:
       containers:
         - env:
+            - name: DATABASE_SERVICE_NAME
+              value: postgresql
             - name: POSTGRESQL_USER
               valueFrom:
                 secretKeyRef:
@@ -42,31 +43,30 @@ spec:
                   name: nodejs-postgresql-persistent
           image: ' '
           livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
             initialDelaySeconds: 30
-            tcpSocket:
-              port: 5432
-            timeoutSeconds: 1
-          name: postgresql
+            timeoutSeconds: 3
+          name: nodejs-postgresql-persistent
           ports:
-            - containerPort: 5432
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 3
+            timeoutSeconds: 3
           resources:
             limits:
               memory: 256Mi
-          volumeMounts:
-            - mountPath: /var/lib/postgresql/data
-              name: postgresql-data
-      volumes:
-        - name: postgresql-data
-          persistentVolumeClaim:
-            claimName: postgresql
   triggers:
     - imageChangeParams:
         automatic: true
         containerNames:
-          - postgresql
+          - nodejs-postgresql-persistent
         from:
           kind: ImageStreamTag
-          name: postgresql:12-el8
-          namespace: openshift
+          name: nodejs-postgresql-persistent:latest
       type: ImageChange
     - type: ConfigChange

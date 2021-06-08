@@ -1,0 +1,18 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: nodejs-12-ubi8
+  namespace: cluster-validation-nodejs
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+    - name: latest
+      annotations: null
+      from:
+        kind: DockerImage
+        name: 'registry.access.redhat.com/ubi8/nodejs-12:1'
+      importPolicy:
+        insecure: true
+      referencePolicy:
+        type: Source

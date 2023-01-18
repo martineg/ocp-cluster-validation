@@ -16,7 +16,7 @@ spec:
   source:
     contextDir: ""
     git:
-      ref: ""
+      ref: "16.x"
       uri: https://github.com/nodeshift-starters/nodejs-rest-http-crud.git
     type: Git
   strategy:

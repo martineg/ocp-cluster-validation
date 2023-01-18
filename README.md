@@ -6,7 +6,7 @@ A validation script is provided to test read and write accesss to the database t
 
 ## Prerequisites
 - A default storage class must be defined in the cluster for creation of a PV used by persistent PostgreSQL instance.
-- [bats test framework](https://github.com/sstephenson/bats)
+- [bats-core test framework](https://github.com/bats-core/bats-core)
 - [jq](https://stedolan.github.io/jq/)
 
 ## Deploying and testing the application

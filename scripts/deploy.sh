@@ -16,7 +16,7 @@ wait_for_build() {
                 break;
             else
                 echo -n "."
-                sleep 1s
+                sleep 1
             fi
         done
     done
@@ -30,7 +30,7 @@ wait_for_deploy() {
          echo "waiting for $app to become ready"
         while [[ $(oc get pods -n $app_ns -l name=$app \
         -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]]; do
-            sleep 1s
+            sleep 1
         done
     done
 }

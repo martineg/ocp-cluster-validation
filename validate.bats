@@ -19,6 +19,12 @@ load scripts/helper
     $app_root | jq
 }
 
+@test "fetch element from database through API" {
+    set_route
+    curl -s $app_root | \
+    jq '.[] | select(.name == "Banana")'
+}
+
 @test "delete item from database" {
     set_route
     item_id=$(curl -s $app_root | \
